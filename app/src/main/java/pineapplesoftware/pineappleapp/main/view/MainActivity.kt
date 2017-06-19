@@ -1,10 +1,11 @@
-package pineapplesoftware.pineappleapp
+package pineapplesoftware.pineappleapp.main.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 
 import kotlinx.android.synthetic.main.activity_main.*
+import pineapplesoftware.pineappleapp.R
 
 class MainActivity : AppCompatActivity()
 {
