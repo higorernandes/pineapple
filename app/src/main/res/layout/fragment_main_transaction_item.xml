@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/default_list_item_height"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="horizontal">
+
+    <!-- Transaction Name -->
+    <TextView
+        android:id="@+id/mainFragmentTransactionNameTextView"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_medium_padding"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+    <!-- Transaction Description -->
+    <TextView
+        android:id="@+id/mainFragmentTransactionDescriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/default_medium_padding"
+        android:layout_weight="3"
+        android:text="TextView" />
+
+    <!-- Transaction Date -->
+    <TextView
+        android:id="@+id/mainFragmentTransactionDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/default_medium_padding"
+        android:layout_weight="1"
+        android:text="TextView" />
+
+</LinearLayout>

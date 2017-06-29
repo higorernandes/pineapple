@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Paddings -->
+    <dimen name="default_large_padding">32dp</dimen>
+    <dimen name="default_medium_padding">16dp</dimen>
+    <dimen name="default_small_padding">8dp</dimen>
+
+    <!-- Lists -->
+    <dimen name="default_list_item_height">50dp</dimen>
+</resources>

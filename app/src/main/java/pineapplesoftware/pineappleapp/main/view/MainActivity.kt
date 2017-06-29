@@ -1,6 +1,5 @@
 package pineapplesoftware.pineappleapp.main.view
 
-import android.content.ClipData
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
@@ -8,10 +7,12 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 
 import pineapplesoftware.pineappleapp.R
-import pineapplesoftware.pineappleapp.main.adapter.ExpensesListArrayAdapter
+import pineapplesoftware.pineappleapp.main.adapter.TransactionsListArrayAdapter
+import pineapplesoftware.pineappleapp.main.model.AccountDto
+import pineapplesoftware.pineappleapp.main.model.TransactionItemDto
+import java.util.*
 
 class MainActivity : AppCompatActivity() , View.OnClickListener
 {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener
 
     private var mMainExpensesRecyclerView : RecyclerView? = null
 
-    private var mObjects : ArrayList<String>? = null
+    private var mObjects : ArrayList<TransactionItemDto> = ArrayList<TransactionItemDto>()
 
     //endregion
 
@@ -44,7 +45,12 @@ class MainActivity : AppCompatActivity() , View.OnClickListener
     //region Private Methods
 
     private fun loadData() {
-        mObjects = ArrayList<String>()
+        mObjects.add(TransactionItemDto(1, "COMPRAS MERCADO", "MERCADO DA GENTE", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto()))
+        mObjects.add(TransactionItemDto(1, "COMPRAS SHOPPING", "Riachuelo", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto()))
+        mObjects.add(TransactionItemDto(1, "PADARIA", "Compra de pães", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto()))
+        mObjects.add(TransactionItemDto(1, "POSTO", "Gasolina", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto()))
+        mObjects.add(TransactionItemDto(1, "COMPRAS MERCADO", "Compras 25/08", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto()))
+        mObjects.add(TransactionItemDto(1, "RESTAURANTE", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto()))
     }
 
     private fun getViews() {
@@ -52,8 +58,8 @@ class MainActivity : AppCompatActivity() , View.OnClickListener
 
         mMainExpensesRecyclerView?.layoutManager = LinearLayoutManager(this)
         mMainExpensesRecyclerView?.itemAnimator = DefaultItemAnimator()
-        mMainExpensesRecyclerView?.adapter = ExpensesListArrayAdapter(mObjects) {
-            Log.e("CLICKED", "item x")
+        mMainExpensesRecyclerView?.adapter = TransactionsListArrayAdapter(mObjects) {
+            Log.e("CLICKED", "item ${it.transactionName}")
         }
     }
 
