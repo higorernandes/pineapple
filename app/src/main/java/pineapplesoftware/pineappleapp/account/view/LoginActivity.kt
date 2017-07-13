@@ -1,8 +1,10 @@
 package pineapplesoftware.pineappleapp.account.view
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
@@ -42,6 +44,7 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
         setUpFacebookLogin()
 
         prepareViews()
+        setFonts()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -79,6 +82,20 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
     private fun prepareViews() {
         facebookLoginButton.setOnClickListener(this)
         emailSignInButton.setOnClickListener { attemptLogin() }
+    }
+
+    private fun setFonts() {
+        val zillaSlabFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/ZillaSlab-Regular.ttf")
+
+        emailTextInputLayout.setTypeface(zillaSlabFontRegular)
+        passwordTextInputLayout.setTypeface(zillaSlabFontRegular)
+        loginTextView.typeface = zillaSlabFontRegular
+        passwordTextView.typeface = zillaSlabFontRegular
+        facebookLoginButton.typeface = zillaSlabFontRegular
+        emailSignInButton.typeface = zillaSlabFontRegular
+        appNameTextView.typeface = zillaSlabFontRegular
+
+        facebookLoginButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
     }
 
     private fun isEmailValid(email: String): Boolean {

@@ -19,8 +19,7 @@
         <!-- Login Activity -->
         <activity
             android:name=".account.view.LoginActivity"
-            android:noHistory="false"
-            android:label="@string/title_activity_login">
+            android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
