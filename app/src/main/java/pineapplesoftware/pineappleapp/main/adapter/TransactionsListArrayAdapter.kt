@@ -1,7 +1,7 @@
 package pineapplesoftware.pineappleapp.main.adapter;
 
-import android.content.ClipData
 import android.content.Context
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,17 +9,18 @@ import android.view.ViewGroup
 import android.widget.TextView
 import pineapplesoftware.pineappleapp.R
 import pineapplesoftware.pineappleapp.main.model.TransactionItemDto
-import java.text.DateFormat
 
 /**
  * Created by nds on 28/06/17.
  */
 
-class TransactionsListArrayAdapter constructor(objects: ArrayList<TransactionItemDto>, val clickListener: (TransactionItemDto) -> Unit) : RecyclerView.Adapter<TransactionsListArrayAdapter.Holder>() {
+class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayList<TransactionItemDto>, val clickListener: (TransactionItemDto) -> Unit) : RecyclerView.Adapter<TransactionsListArrayAdapter.Holder>() {
 
     //region Attributes
 
+    private var mContext : Context
     private var mObjects : ArrayList<TransactionItemDto> = ArrayList<TransactionItemDto>()
+    private var mZillaSlabFontRegular : Typeface? = null
 
     //endregion
 
@@ -27,6 +28,8 @@ class TransactionsListArrayAdapter constructor(objects: ArrayList<TransactionIte
 
     init {
         mObjects = objects
+        mContext = context
+        mZillaSlabFontRegular = Typeface.createFromAsset(mContext.assets, "fonts/ZillaSlab-Regular.ttf")
     }
 
     //endregion
@@ -38,9 +41,16 @@ class TransactionsListArrayAdapter constructor(objects: ArrayList<TransactionIte
 
         holder?.transactionName?.text = transactionItem.transactionName
         holder?.transactionDescription?.text = transactionItem.transactionDescription
+        holder?.transactionAmount?.text = "R$ 25,30"
         holder?.transactionDate?.text = "25/06"
 
+        //holder?.containerView?.setOnClickListener { clickListener(transactionItem) }
         holder?.containerView?.setOnClickListener { clickListener(transactionItem) }
+
+        holder?.transactionName?.typeface = mZillaSlabFontRegular
+        holder?.transactionDescription?.typeface = mZillaSlabFontRegular
+        holder?.transactionDate?.typeface = mZillaSlabFontRegular
+        holder?.transactionAmount?.typeface = mZillaSlabFontRegular
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
@@ -62,11 +72,13 @@ class TransactionsListArrayAdapter constructor(objects: ArrayList<TransactionIte
         var containerView : View = itemView
         var transactionName : TextView? = null
         var transactionDescription : TextView? = null
+        var transactionAmount : TextView? = null
         var transactionDate : TextView? = null
 
         init {
             transactionName = itemView.findViewById(R.id.mainFragmentTransactionNameTextView) as TextView
             transactionDescription = itemView.findViewById(R.id.mainFragmentTransactionDescriptionTextView) as TextView
+            transactionAmount = itemView.findViewById(R.id.mainFragmentTransactionAmountTextView) as TextView
             transactionDate = itemView.findViewById(R.id.mainFragmentTransactionDateTextView) as TextView
         }
     }

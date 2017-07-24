@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
+    app:theme="@style/ToolbarStyle">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Toolbar Title -->
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:lines="1"
+            android:text="Pineapple"
+            android:textColor="@android:color/white"
+            android:textSize="18dp" />
+
+        <!-- User Image -->
+        <com.facebook.login.widget.ProfilePictureView
+            android:id="@+id/userProfilePicture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/default_small_margin"
+            android:layout_marginRight="@dimen/default_card_margin"
+            android:layout_marginTop="@dimen/default_small_margin"
+            android:layout_marginBottom="@dimen/default_small_margin"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>

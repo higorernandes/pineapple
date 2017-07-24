@@ -1,6 +1,5 @@
-package pineapplesoftware.pineappleapp.account.view
+package pineapplesoftware.pineappleapp.account.controller
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -20,7 +19,7 @@ import com.facebook.login.LoginResult
 
 import kotlinx.android.synthetic.main.activity_login.*
 import pineapplesoftware.pineappleapp.R
-import pineapplesoftware.pineappleapp.main.view.MainActivity
+import pineapplesoftware.pineappleapp.main.controller.MainActivity
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*

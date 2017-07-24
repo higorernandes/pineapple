@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:innerRadius="0dp"
+    android:shape="oval">
+
+    <stroke
+        android:width="0.5dp"
+        android:color="@color/colorAccent"/>
+
+    <size
+        android:width="@dimen/default_small_image_size"
+        android:height="@dimen/default_small_image_size"/>
+
+
+</shape>
+

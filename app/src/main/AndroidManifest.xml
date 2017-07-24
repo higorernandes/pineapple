@@ -18,7 +18,7 @@
 
         <!-- Login Activity -->
         <activity
-            android:name=".account.view.LoginActivity"
+            android:name=".account.controller.LoginActivity"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,9 @@
         </activity>
 
         <!-- Main Activity -->
-        <activity android:name=".main.view.MainActivity"/>
+        <activity
+            android:name=".main.controller.MainActivity"
+            android:theme="@style/NoActionBarTheme"/>
 
         <!-- Facebook Activity -->
         <activity

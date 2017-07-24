@@ -1,35 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/default_list_item_height"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:color/transparent">
 
-    <!-- Transaction Name -->
-    <TextView
-        android:id="@+id/mainFragmentTransactionNameTextView"
-        android:layout_width="50dp"
+    <!-- CardView -->
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_medium_margin"
-        android:layout_weight="1"
-        android:text="TextView" />
+        android:layout_marginBottom="@dimen/default_card_margin_small"
+        android:layout_marginLeft="@dimen/default_card_margin"
+        android:layout_marginRight="@dimen/default_card_margin"
+        android:layout_marginTop="@dimen/default_card_margin_small"
+        android:background="@android:color/white"
+        android:foreground="?android:attr/selectableItemBackground">
 
-    <!-- Transaction Description -->
-    <TextView
-        android:id="@+id/mainFragmentTransactionDescriptionTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_medium_margin"
-        android:layout_weight="3"
-        android:text="TextView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/default_card_margin"
+            android:orientation="horizontal">
 
-    <!-- Transaction Date -->
-    <TextView
-        android:id="@+id/mainFragmentTransactionDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/default_medium_margin"
-        android:layout_weight="1"
-        android:text="TextView" />
+            <!-- Transaction Icon -->
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="@dimen/default_small_image_size"
+                android:layout_height="@dimen/default_small_image_size"
+                android:layout_gravity="center"
+                android:background="@drawable/image_oval"/>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_card_margin"
+                android:layout_gravity="center"
+                android:layout_weight="5">
+
+                <!-- Transaction Name -->
+                <TextView
+                    android:id="@+id/mainFragmentTransactionNameTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/default_extra_small_margin"
+                    android:alpha="0.87"
+                    android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_size_medium" />
+
+                <!-- Transaction Description -->
+                <TextView
+                    android:id="@+id/mainFragmentTransactionDescriptionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mainFragmentTransactionNameTextView"
+                    android:alpha="0.38"
+                    android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_size_small" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2">
+
+                <!-- Transaction Amount -->
+                <TextView
+                    android:id="@+id/mainFragmentTransactionAmountTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="@dimen/default_extra_small_margin"
+                    android:alpha="0.87"
+                    android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_size_medium" />
+
+                <!-- Transaction Date -->
+                <TextView
+                    android:id="@+id/mainFragmentTransactionDateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_below="@id/mainFragmentTransactionAmountTextView"
+                    android:alpha="0.38"
+                    android:text="TextView"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_size_small" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 
 </LinearLayout>
