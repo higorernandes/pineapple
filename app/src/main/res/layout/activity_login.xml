@@ -14,8 +14,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="@dimen/default_large_image_size"
-        android:layout_height="@dimen/default_large_image_size"
+        android:layout_width="@dimen/image_large_size"
+        android:layout_height="@dimen/image_large_size"
         android:layout_marginBottom="@dimen/default_medium_margin"
         app:srcCompat="@mipmap/ic_launcher" />
 
@@ -108,8 +108,8 @@
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="@dimen/default_small_image_size"
-                android:layout_height="@dimen/default_small_image_size"
+                android:layout_width="@dimen/image_small_size"
+                android:layout_height="@dimen/image_small_size"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/default_small_margin"

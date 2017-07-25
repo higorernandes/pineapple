@@ -26,16 +26,16 @@
             android:textSize="18dp" />
 
         <!-- User Image -->
-        <com.facebook.login.widget.ProfilePictureView
-            android:id="@+id/userProfilePicture"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/default_small_margin"
-            android:layout_marginRight="@dimen/default_card_margin"
-            android:layout_marginTop="@dimen/default_small_margin"
-            android:layout_marginBottom="@dimen/default_small_margin"
-            android:layout_alignParentRight="true" />
+        <!--<com.facebook.login.widget.ProfilePictureView-->
+            <!--android:id="@+id/userProfilePicture"-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="30dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:layout_marginLeft="@dimen/default_small_margin"-->
+            <!--android:layout_marginRight="@dimen/default_card_margin"-->
+            <!--android:layout_marginTop="@dimen/default_small_margin"-->
+            <!--android:layout_marginBottom="@dimen/default_small_margin"-->
+            <!--android:layout_alignParentRight="true" />-->
 
     </RelativeLayout>
 

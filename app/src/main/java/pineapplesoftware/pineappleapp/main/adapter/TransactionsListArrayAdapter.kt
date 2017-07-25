@@ -54,7 +54,7 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
-        var itemView : View = LayoutInflater.from(parent?.context).inflate(R.layout.fragment_main_transaction_item, parent, false)
+        var itemView : View = LayoutInflater.from(parent?.context).inflate(R.layout.item_transaction, parent, false)
         return Holder(itemView)
 
     }

@@ -9,8 +9,8 @@
         android:color="@color/colorAccent"/>
 
     <size
-        android:width="@dimen/default_small_image_size"
-        android:height="@dimen/default_small_image_size"/>
+        android:width="@dimen/image_small_size"
+        android:height="@dimen/image_small_size"/>
 
 
 </shape>

@@ -25,8 +25,8 @@
             <!-- Transaction Icon -->
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="@dimen/default_small_image_size"
-                android:layout_height="@dimen/default_small_image_size"
+                android:layout_width="@dimen/image_small_size"
+                android:layout_height="@dimen/image_small_size"
                 android:layout_gravity="center"
                 android:background="@drawable/image_oval"/>
 
