@@ -2,8 +2,6 @@ package pineapplesoftware.pineappleapp.main.controller
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -27,11 +25,7 @@ import kotlinx.android.synthetic.main.nav_header_main.view.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
 import pineapplesoftware.pineappleapp.R
-import pineapplesoftware.pineappleapp.main.model.AccountDto
-import pineapplesoftware.pineappleapp.main.model.TransactionItemDto
 import pineapplesoftware.pineappleapp.util.CircleTransform
-import java.net.URL
-import java.util.*
 
 class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
 {
@@ -41,7 +35,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
     private val mUrlNavHeaderBackground : String = "http://api.androidhive.info/images/nav-menu-header-bg.jpg"
     private var mUrlNavUserProfile : String = "https://graph.facebook.com/{userId}/picture?type=large"
-    private var mObjects : ArrayList<TransactionItemDto> = ArrayList<TransactionItemDto>()
     private var mUserId : String? = null
     private var mNavItemIndex: Int = 0
     private var mShouldLoadHomeFragOnBackPress = true
@@ -69,8 +62,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
         mUserId = intent.getStringExtra(USER_ID) ?: throw IllegalStateException("Field $USER_ID missing in Intent.")
         mUrlNavUserProfile = mUrlNavUserProfile.replace("{userId}", mUserId as String)
 
-        loadData()
-        getViews()
+        prepareViews()
         loadNavHeader()
         setUpNavigationView()
 
@@ -78,12 +70,14 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
             mNavItemIndex = 0
             loadMainFragment()
         }
-
     }
 
     override fun onClick(view: View?) {
-        if (view != null) {
-
+        when (view?.id) {
+            R.id.fab -> {
+                val intent : Intent = CreateTransactionActivity.getActivityIntent(this)
+                startActivity(intent)
+            }
         }
     }
 
@@ -150,23 +144,8 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
     //region Private Methods
 
-    private fun loadData() {
-        mObjects.add(TransactionItemDto(1, "Compras Mercado", "Mercado da Gente", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-        mObjects.add(TransactionItemDto(1, "Compras Shopping", "Riachuelo", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-        mObjects.add(TransactionItemDto(1, "Padaria", "Compra de pães", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-        mObjects.add(TransactionItemDto(1, "Posto", "Gasolina", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-        mObjects.add(TransactionItemDto(1, "Compras Mercado", "Compras 25/08", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-        mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-    }
-
-    private fun getViews() {
-//        mainExpensesRecyclerView?.layoutManager = LinearLayoutManager(this)
-//        mainExpensesRecyclerView?.itemAnimator = DefaultItemAnimator()
-//        mainExpensesRecyclerView?.adapter = TransactionsListArrayAdapter(applicationContext, mObjects) {
-//            //TODO: navigate to transaction detail screen
-//            Log.e("CLICKED", "item ${it.transactionName}")
-//        }
-
+    private fun prepareViews() {
+        fab.setOnClickListener(this)
         val zillaSlabFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/ZillaSlab-Regular.ttf")
         mainToolbar.mainToolbarLayout.toolbarTitle.typeface = zillaSlabFontRegular
     }
@@ -203,7 +182,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
                 fragmentTransaction.commitAllowingStateLoss()
             }
         }
-
 
         mHandler?.post(pendingRunnable)
 
