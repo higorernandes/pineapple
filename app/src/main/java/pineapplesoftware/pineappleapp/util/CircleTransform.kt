@@ -8,8 +8,8 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 /**
  * Created by root on 2017-07-24.
  */
-class CircleTransform(context: Context) : BitmapTransformation(context) {
-
+class CircleTransform constructor(context: Context) : BitmapTransformation(context)
+{
     //region Overridden Methods
 
     override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap? {
@@ -25,26 +25,26 @@ class CircleTransform(context: Context) : BitmapTransformation(context) {
     //region Companion Object
 
     companion object {
-        fun circleCrop(pool: BitmapPool, source: Bitmap) : Bitmap? {
+        fun circleCrop(pool: BitmapPool, source: Bitmap?) : Bitmap? {
             if (source == null) return null
 
-            var size : Int = Math.min(source.width, source.height)
-            var x = (source.width - size) / 2
-            var y = (source.height - size) / 2
+            val size : Int = Math.min(source.width, source.height)
+            val x = (source.width - size) / 2
+            val y = (source.height - size) / 2
 
-            var squared : Bitmap = Bitmap.createBitmap(source, x, y, size, size)
+            val squared : Bitmap = Bitmap.createBitmap(source, x, y, size, size)
 
-            var result : Bitmap = pool.get(size, size, Bitmap.Config.ARGB_8888)
+            var result : Bitmap? = pool.get(size, size, Bitmap.Config.ARGB_8888)
 
             if (result == null) {
                 result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
             }
 
-            var canvas : Canvas = Canvas(result)
-            var paint : Paint = Paint()
-            paint.setShader(BitmapShader(squared, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP))
+            val canvas : Canvas = Canvas(result)
+            val paint : Paint = Paint()
+            paint.shader = BitmapShader(squared, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
             paint.isAntiAlias = true
-            var r : Float = size / 2f
+            val r : Float = size / 2.0f
             canvas.drawCircle(r, r, r, paint)
 
             return result

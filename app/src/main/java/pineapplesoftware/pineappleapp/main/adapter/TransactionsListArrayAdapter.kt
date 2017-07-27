@@ -20,7 +20,7 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
 
     private var mContext : Context
     private var mObjects : ArrayList<TransactionItemDto> = ArrayList<TransactionItemDto>()
-    private var mZillaSlabFontRegular : Typeface? = null
+    private var mOpenSansFontRegular : Typeface? = null
 
     //endregion
 
@@ -29,7 +29,7 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
     init {
         mObjects = objects
         mContext = context
-        mZillaSlabFontRegular = Typeface.createFromAsset(mContext.assets, "fonts/ZillaSlab-Regular.ttf")
+        mOpenSansFontRegular = Typeface.createFromAsset(mContext.assets, "fonts/OpenSans-Regular.ttf")
     }
 
     //endregion
@@ -47,10 +47,10 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
         //holder?.containerView?.setOnClickListener { clickListener(transactionItem) }
         holder?.containerView?.setOnClickListener { clickListener(transactionItem) }
 
-        holder?.transactionName?.typeface = mZillaSlabFontRegular
-        holder?.transactionDescription?.typeface = mZillaSlabFontRegular
-        holder?.transactionDate?.typeface = mZillaSlabFontRegular
-        holder?.transactionAmount?.typeface = mZillaSlabFontRegular
+        holder?.transactionName?.typeface = mOpenSansFontRegular
+        holder?.transactionDescription?.typeface = mOpenSansFontRegular
+        holder?.transactionDate?.typeface = mOpenSansFontRegular
+        holder?.transactionAmount?.typeface = mOpenSansFontRegular
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {

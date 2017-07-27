@@ -31,7 +31,13 @@
     <string name="open_drawer">open_drawer</string>
     <string name="close_drawer">close_drawer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Create Transaction Activity -->
+    <string name="create_transaction_description">Description</string>
+    <string name="create_transaction_amount">Value</string>
+    <string name="create_transaction_date">Date</string>
+    <string name="create_transaction_type">Transaction yype</string>
+    <string name="create_transaction_save">Save</string>
+    <string name="create_transaction_expense">Expense</string>
+    <string name="create_transaction_earning">Earning</string>
 
 </resources>

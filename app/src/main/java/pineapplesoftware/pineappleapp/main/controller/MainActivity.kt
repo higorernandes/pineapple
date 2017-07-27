@@ -12,20 +12,29 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.SubMenu
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.app_bar_main.view.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
 import pineapplesoftware.pineappleapp.R
+import pineapplesoftware.pineappleapp.account.controller.LoginActivity
+import pineapplesoftware.pineappleapp.application.PineappleApplication
+import pineapplesoftware.pineappleapp.helper.UserCredentialsHelper
 import pineapplesoftware.pineappleapp.util.CircleTransform
+import pineapplesoftware.pineappleapp.util.CustomTypefaceSpan
 
 class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
 {
@@ -51,6 +60,8 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        PineappleApplication(this)
+
         setSupportActionBar(mainToolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.mipmap.ic_launcher)
@@ -59,8 +70,8 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
         mHandler = Handler()
 
         // Getting the user ID to setup their profile picture.
-        mUserId = intent.getStringExtra(USER_ID) ?: throw IllegalStateException("Field $USER_ID missing in Intent.")
-        mUrlNavUserProfile = mUrlNavUserProfile.replace("{userId}", mUserId as String)
+        mUserId = UserCredentialsHelper.getInstance().getAuthenticationData()?.userId
+        mUrlNavUserProfile = mUrlNavUserProfile.replace("{userId}", mUserId as String, false)
 
         prepareViews()
         loadNavHeader()
@@ -76,6 +87,16 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
         when (view?.id) {
             R.id.fab -> {
                 val intent : Intent = CreateTransactionActivity.getActivityIntent(this)
+                startActivity(intent)
+            }
+            R.id.nav_logout -> {
+                UserCredentialsHelper.getInstance().removeCurrentToken()
+                UserCredentialsHelper.getInstance().removeCurrentAuthData()
+
+                val intent : Intent = LoginActivity.getActivityIntent(this)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }
         }
@@ -146,8 +167,28 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
     private fun prepareViews() {
         fab.setOnClickListener(this)
-        val zillaSlabFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/ZillaSlab-Regular.ttf")
-        mainToolbar.mainToolbarLayout.toolbarTitle.typeface = zillaSlabFontRegular
+        val openSansFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Regular.ttf")
+        mainToolbar.mainToolbarLayout.toolbarTitle.typeface = openSansFontRegular
+
+        // Applying font to all menu items.
+        for (index in 0..mainNavigationView.menu.size() - 1) {
+            val menuItem : MenuItem = mainNavigationView.menu.getItem(index)
+            val subMenu : SubMenu? = menuItem.subMenu
+            if (subMenu != null && subMenu.size() > 0) {
+                for (subMenuIndex in 0..mainNavigationView.menu.getItem(index).subMenu.size() -1) {
+                    applyFontToMenuItem(subMenu.getItem(subMenuIndex))
+                }
+            }
+
+            applyFontToMenuItem(menuItem)
+        }
+    }
+
+    private fun applyFontToMenuItem(menuItem: MenuItem) {
+        val openSansFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Regular.ttf")
+        val newTitle : SpannableString = SpannableString(menuItem.title)
+        newTitle.setSpan(CustomTypefaceSpan("", openSansFontRegular), 0, newTitle.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        menuItem.title = newTitle
     }
 
     private fun loadNavHeader() {
@@ -155,12 +196,12 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
         mainNavigationView.getHeaderView(0).userName.text = "Higor Ernandes"
         mainNavigationView.getHeaderView(0).userWebsite.text = "www.ismycomputeron.com"
 
-        val zillaSlabFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/ZillaSlab-Regular.ttf")
-        mainNavigationView.getHeaderView(0).userName.typeface = zillaSlabFontRegular
-        mainNavigationView.getHeaderView(0).userWebsite.typeface = zillaSlabFontRegular
+        val openSansFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Regular.ttf")
+        mainNavigationView.getHeaderView(0).userName.typeface = openSansFontRegular
+        mainNavigationView.getHeaderView(0).userWebsite.typeface = openSansFontRegular
 
         // Setting up the user image and the background
-        Glide.with(this).load(mUrlNavHeaderBackground).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(mainNavigationView.getHeaderView(0).imageHeaderBackground)
+        //Glide.with(this).load(mUrlNavHeaderBackground).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(mainNavigationView.getHeaderView(0).imageHeaderBackground)
         Glide.with(this).load(mUrlNavUserProfile).crossFade().thumbnail(0.5f).bitmapTransform(CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(mainNavigationView.getHeaderView(0).imageProfile)
     }
 
@@ -236,9 +277,8 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
     companion object {
         private val USER_ID = "user_id"
 
-        fun getActivityIntent(context: Context, userId: String?) : Intent {
+        fun getActivityIntent(context: Context) : Intent {
             val intent : Intent = Intent(context, MainActivity::class.java)
-            intent.putExtra(USER_ID, userId)
             return intent
         }
     }

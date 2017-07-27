@@ -4,19 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.style.TtsSpan
+import android.view.View
+import kotlinx.android.synthetic.main.activity_create_transaction.*
 import pineapplesoftware.pineappleapp.R
+import pineapplesoftware.pineappleapp.application.EventManager
 import pineapplesoftware.pineappleapp.main.model.TransactionItemDto
 import pineapplesoftware.pineappleapp.main.observer.Observer
 import pineapplesoftware.pineappleapp.main.observer.TransactionChangeSubject
+import java.util.*
 
-class CreateTransactionActivity : AppCompatActivity(), TransactionChangeSubject
+class CreateTransactionActivity : AppCompatActivity(), View.OnClickListener
 {
-    //region Attributes
-
-    private var mObservers : ArrayList<Observer> = ArrayList()
-
-    //endregion
-
     //region Overridden Methods
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,37 +23,34 @@ class CreateTransactionActivity : AppCompatActivity(), TransactionChangeSubject
         setContentView(R.layout.activity_create_transaction)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeButtonEnabled(true)
+
+        prepareViews()
     }
 
-    override fun registerObserver(observer: Observer) {
-        if (!mObservers.contains(observer)) {
-            mObservers.add(observer)
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.createTransactionButtonSave -> createTransaction()
         }
     }
 
-    override fun removeObserver(observer: Observer) {
-        if (mObservers.contains(observer)) {
-            mObservers.remove(observer)
-        }
+    //endregion
+
+    //region Private Methods
+
+    private fun prepareViews() {
+        createTransactionButtonSave.setOnClickListener(this)
     }
 
-    override fun notifyObserversItemAdded(transactionItem: TransactionItemDto) {
-        for (observer in mObservers) {
-            // TODO: create TransactionItemDto and pass it at the below Method
-            observer.updateAddedItem(transactionItem)
-        }
-    }
+    private fun createTransaction() {
+        val transactionItem : TransactionItemDto = TransactionItemDto()
+        transactionItem.transactionAmount = transactionAmountEditText.text.toString()
+        transactionItem.transactionDescription = transactionDescriptionEditText.text.toString()
+        transactionItem.transactionName = transactionDescriptionEditText.text.toString()
+        transactionItem.transactionDate = Date()
+        transactionItem.transactionType = if (transactionTypeEarningRadioButton.isSelected) TransactionItemDto.ExpenseType.EARNING else TransactionItemDto.ExpenseType.EXPENSE
 
-    override fun notifyObserversItemEdited(index: Int) {
-        for (observer in mObservers) {
-            observer.updateEditedItem(atIndex = index)
-        }
-    }
-
-    override fun notifyObserversItemRemoved(index: Int) {
-        for (observer in mObservers) {
-            observer.updateDeletedItem(atIndex = index)
-        }
+        EventManager.getInstance()?.notifyObserversItemAdded(transactionItem)
+        finish()
     }
 
     //endregion

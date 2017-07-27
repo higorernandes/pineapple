@@ -3,11 +3,11 @@ package pineapplesoftware.pineappleapp.main.model;
 import java.util.*
 
 /**
- * Created by Higor Ernandes on 28/06/17.
+ * Created by root on 28/06/17.
  */
 
-class TransactionItemDto constructor(transactionId: Int?,  transactionName: String?, transactionDescription: String?, transactionType: ExpenseType?, transactionDate: Date?, transactionAccount: AccountDto?, transactionAmount: String?) {
-
+class TransactionItemDto
+{
     var transactionId : Int? = null
     var transactionName : String? = null
     var transactionDescription : String? = null
@@ -16,7 +16,7 @@ class TransactionItemDto constructor(transactionId: Int?,  transactionName: Stri
     var transactionAccount : AccountDto? = null
     var transactionAmount : String? = null
 
-    init {
+    constructor(transactionId: Int?,  transactionName: String?, transactionDescription: String?, transactionType: ExpenseType?, transactionDate: Date?, transactionAccount: AccountDto?, transactionAmount: String?) {
         this.transactionId = transactionId
         this.transactionName = transactionName
         this.transactionDescription = transactionDescription
@@ -26,7 +26,9 @@ class TransactionItemDto constructor(transactionId: Int?,  transactionName: Stri
         this.transactionAmount = transactionAmount
     }
 
+    constructor()
+
     enum class ExpenseType {
-        EXPENSE, INCOME
+        EXPENSE, EARNING
     }
 }

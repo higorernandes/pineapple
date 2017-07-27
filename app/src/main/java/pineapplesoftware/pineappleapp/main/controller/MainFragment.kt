@@ -1,21 +1,17 @@
 package pineapplesoftware.pineappleapp.main.controller
 
-import android.content.Context
-import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 
 import pineapplesoftware.pineappleapp.R
+import pineapplesoftware.pineappleapp.application.EventManager
 import pineapplesoftware.pineappleapp.main.adapter.TransactionsListArrayAdapter
 import pineapplesoftware.pineappleapp.main.model.AccountDto
 import pineapplesoftware.pineappleapp.main.model.TransactionItemDto
@@ -44,7 +40,7 @@ class MainFragment : Fragment(), Observer
         super.onActivityCreated(savedInstanceState)
 
         // Registering the current class as an observer for the list changes.
-        this.mTransactionChangeSubject?.registerObserver(this)
+        EventManager.getInstance()?.registerObserver(this)
 
         loadData()
         prepareViews()
@@ -59,7 +55,11 @@ class MainFragment : Fragment(), Observer
     }
 
     override fun updateAddedItem(transactionItem: TransactionItemDto) {
+        mObjects.add(transactionItem)
 
+        activity.runOnUiThread() {
+            mainExpensesRecyclerView.adapter.notifyDataSetChanged()
+        }
     }
 
     //endregion
