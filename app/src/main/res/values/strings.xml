@@ -32,6 +32,7 @@
     <string name="close_drawer">close_drawer</string>
 
     <!-- Create Transaction Activity -->
+    <string name="create_transaction_create">New transaction</string>
     <string name="create_transaction_description">Description</string>
     <string name="create_transaction_amount">Value</string>
     <string name="create_transaction_date">Date</string>

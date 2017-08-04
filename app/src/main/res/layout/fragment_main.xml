@@ -2,14 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pineapplesoftware.pineappleapp.main.controller.MainFragment">
+    tools:context="pineapplesoftware.pineappleapp.main.MainFragment">
 
     <!-- Main list of expenses -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mainExpensesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/default_card_margin_small">
+        android:paddingTop="@dimen/default_card_margin_small"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/list_padding_bottom">
 
     </android.support.v7.widget.RecyclerView>
 

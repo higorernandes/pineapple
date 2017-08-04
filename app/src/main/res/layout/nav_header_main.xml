@@ -8,7 +8,7 @@
     android:gravity="bottom"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    tools:context="pineapplesoftware.pineappleapp.main.controller.MainActivity">
+    tools:context="pineapplesoftware.pineappleapp.main.MainActivity">
 
     <ImageView
         android:id="@+id/imageHeaderBackground"

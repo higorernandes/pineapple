@@ -1,13 +1,10 @@
-package pineapplesoftware.pineappleapp.account.controller
+package pineapplesoftware.pineappleapp.account
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.View
 import com.facebook.CallbackManager
@@ -23,10 +20,8 @@ import pineapplesoftware.pineappleapp.R
 import pineapplesoftware.pineappleapp.account.model.AuthenticationData
 import pineapplesoftware.pineappleapp.account.model.AuthenticationResult
 import pineapplesoftware.pineappleapp.application.PineappleApplication
-import pineapplesoftware.pineappleapp.main.controller.MainActivity
+import pineapplesoftware.pineappleapp.main.MainActivity
 import pineapplesoftware.pineappleapp.helper.UserCredentialsHelper
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 import java.util.*
 
 class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.OnClickListener {

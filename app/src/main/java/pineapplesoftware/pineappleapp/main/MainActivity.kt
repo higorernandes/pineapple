@@ -1,4 +1,4 @@
-package pineapplesoftware.pineappleapp.main.controller
+package pineapplesoftware.pineappleapp.main
 
 import android.content.Context
 import android.content.Intent
@@ -14,7 +14,6 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.text.Spannable
 import android.text.SpannableString
-import android.text.style.TypefaceSpan
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -25,12 +24,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.app_bar_main.view.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
 import pineapplesoftware.pineappleapp.R
-import pineapplesoftware.pineappleapp.account.controller.LoginActivity
+import pineapplesoftware.pineappleapp.account.LoginActivity
 import pineapplesoftware.pineappleapp.application.PineappleApplication
 import pineapplesoftware.pineappleapp.helper.UserCredentialsHelper
 import pineapplesoftware.pineappleapp.util.CircleTransform
@@ -64,7 +62,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
         setSupportActionBar(mainToolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.mipmap.ic_launcher)
 //        mainToolbarLayout.userProfilePicture?.profileId = mUserId
 
         mHandler = Handler()
@@ -263,12 +260,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
             fab.hide()
         }
     }
-
-//    private fun getUsersFacebookProfilePicture(userId: String?) : Bitmap {
-//        val imageUrl : URL = URL("https://graph.facebook.com/$userId/picture?type=large")
-//        val bitmap : Bitmap = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream())
-//        return bitmap
-//    }
 
     //endregion
 

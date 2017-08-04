@@ -1,4 +1,4 @@
-package pineapplesoftware.pineappleapp.main.controller
+package pineapplesoftware.pineappleapp.main
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -72,6 +72,10 @@ class MainFragment : Fragment(), Observer
         mObjects.add(TransactionItemDto(1, "Padaria", "Compra de pães", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Posto", "Gasolina", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Compras Mercado", "Compras 25/08", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
+        mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
+        mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
+        mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
+        mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
     }
 
