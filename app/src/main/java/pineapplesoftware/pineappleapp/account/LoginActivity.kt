@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
 import com.facebook.CallbackManager
@@ -14,8 +15,10 @@ import com.facebook.FacebookException
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import kotlinx.android.synthetic.main.activity_create_transaction.*
 
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.toolbar_main.*
 import pineapplesoftware.pineappleapp.R
 import pineapplesoftware.pineappleapp.account.model.AuthenticationData
 import pineapplesoftware.pineappleapp.account.model.AuthenticationResult
@@ -42,10 +45,14 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
 
         PineappleApplication(this)
 
-        setUpFacebookLogin()
+        // Setting up the ToolBar.
+//        setSupportActionBar(loginToolbar as Toolbar)
+//        toolbarTitle.text = resources.getString(R.string.login)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setHomeButtonEnabled(true)
 
+        // setUpFacebookLogin()
         prepareViews()
-        setFonts()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -56,7 +63,7 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
     override fun onSuccess(result: LoginResult?) {
         Log.d(TAG, "Login successful - UserID: ${result?.accessToken?.userId}}, Auth Token: ${result?.accessToken?.token}.")
 
-        val authenticationResult : AuthenticationResult = AuthenticationResult()
+        val authenticationResult = AuthenticationResult()
         authenticationResult.accessToken = result?.accessToken?.token
         UserCredentialsHelper.getInstance().saveCurrentToken(authenticationResult)
 
@@ -76,14 +83,12 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
         Log.e(TAG, "Could not log onto Facebook: ${error?.message}.")
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.emailSignInButton -> {
-                if (isEmailValid() && isPasswordValid()) {
-                    attemptLogin()
-                }
-            }
-        }
+    override fun onClick(v: View?) { }
+
+    override fun onBackPressed() {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        super.onBackPressed()
     }
 
     //endregion
@@ -98,31 +103,17 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
     }
 
     private fun prepareViews() {
-        facebookLoginButton.setOnClickListener(this)
-        emailSignInButton.setOnClickListener { attemptLogin() }
-    }
-
-    private fun setFonts() {
-        val openSansFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Regular.ttf")
-
-        emailTextInputLayout.setTypeface(openSansFontRegular)
-        passwordTextInputLayout.setTypeface(openSansFontRegular)
-        loginTextView.typeface = openSansFontRegular
-        passwordTextView.typeface = openSansFontRegular
-        facebookLoginButton.typeface = openSansFontRegular
-        emailSignInButton.typeface = openSansFontRegular
-        appNameTextView.typeface = openSansFontRegular
-
-        facebookLoginButton.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
+        facebookLoginButton.setOnClickListener { setUpFacebookLogin() }
+        emailSignInButton.setOnClickListener { validateFields() }
     }
 
     private fun isEmailValid(): Boolean {
-        val email : String = loginTextView.text.toString()
+        val email : String = loginEditText.text.toString()
         return email.contains("@")
     }
 
     private fun isPasswordValid(): Boolean {
-        val password : String = passwordTextView.text.toString()
+        val password : String = passwordEditText.text.toString()
         return password.length > 4
     }
 
@@ -144,6 +135,20 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
 //        }
 //    }
 
+    private fun validateFields() {
+        if (!isEmailValid() ) {
+            // TODO: handle it
+            return
+        }
+
+        if (!isPasswordValid() ) {
+            // TODO: handle it
+            return
+        }
+
+        attemptLogin()
+    }
+
     private fun attemptLogin() {
         emailSignInButton.isEnabled = false
 
@@ -155,10 +160,10 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
         emailSignInButton.isEnabled = true
     }
 
-    fun setUpAuthenticationData(userId: String? = null) {
-        val authenticationData : AuthenticationData = AuthenticationData()
-        authenticationData.username = loginTextView?.text.toString()
-        authenticationData.password = passwordTextView?.text.toString()
+    private fun setUpAuthenticationData(userId: String? = null) {
+        val authenticationData = AuthenticationData()
+        authenticationData.username = loginEditText?.text.toString()
+        authenticationData.password = passwordEditText?.text.toString()
         authenticationData.userId = userId ?: "whateverId"
         UserCredentialsHelper.getInstance().saveCurrentAuthenticationData(authenticationData)
     }

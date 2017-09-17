@@ -76,10 +76,10 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
         var transactionDate : TextView? = null
 
         init {
-            transactionName = itemView.findViewById(R.id.mainFragmentTransactionNameTextView) as TextView
-            transactionDescription = itemView.findViewById(R.id.mainFragmentTransactionDescriptionTextView) as TextView
-            transactionAmount = itemView.findViewById(R.id.mainFragmentTransactionAmountTextView) as TextView
-            transactionDate = itemView.findViewById(R.id.mainFragmentTransactionDateTextView) as TextView
+            transactionName = itemView.findViewById<TextView>(R.id.mainFragmentTransactionNameTextView)
+            transactionDescription = itemView.findViewById<TextView>(R.id.mainFragmentTransactionDescriptionTextView)
+            transactionAmount = itemView.findViewById<TextView>(R.id.mainFragmentTransactionAmountTextView)
+            transactionDate = itemView.findViewById<TextView>(R.id.mainFragmentTransactionDateTextView)
         }
     }
 

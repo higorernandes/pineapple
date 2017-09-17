@@ -5,9 +5,21 @@
     <string name="app_full_name">Pineapple Expenses</string>
     <string name="facebook_app_id">630683277125908</string>
 
+    <!-- Generic -->
+
+    <!-- Onboarding -->
+    <string name="onboarding_register">Sign up</string>
+    <string name="onboardong_login">I\'m already in</string>
+    <string name="onboarding_first_title">Control</string>
+    <string name="onboarding_first_text">All your expenses on the palm of your hand.</string>
+    <string name="onboarding_second_title">Planning</string>
+    <string name="onboarding_second_text">Need to know if you can crash that party on the weekend? We can answer that.</string>
+    <string name="onboarding_third_title">Fast access</string>
+    <string name="onboarding_third_text">See your financial status in the blink of an eye.</string>
+
     <!-- Login -->
     <string name="fb_login_protocol_scheme">fb630683277125908</string>
-    <string name="facebook_button_text">Login with Facebook</string>
+    <string name="facebook_button_text">or login with Facebook</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Get me in!</string>
@@ -16,9 +28,11 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+    <string name="login">Login</string>
+    <string name="login_no_account_text">Don\'t have an account?</string>
+    <string name="login_register_button">Sign up here.</string>
+    <string name="login_forgot_password">Forgot your password?</string>
 
     <!-- Navigation Drawer -->
     <string name="nav_home">Home</string>

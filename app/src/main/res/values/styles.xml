@@ -20,4 +20,11 @@
         <item name="colorControlNormal">@color/colorAccent</item>
     </style>
 
+    <!-- EditText Light Style -->
+    <style name="EditTextLightStyle" parent="@style/Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/colorPrimaryExtraLight</item>
+        <item name="android:colorControlNormal">@color/colorPrimaryExtraLight</item>
+        <item name="android:textColorHint">@color/colorPrimaryExtraLight</item>
+    </style>
+
 </resources>

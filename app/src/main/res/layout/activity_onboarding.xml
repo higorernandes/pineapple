@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:orientation="vertical"
+    tools:context="pineapplesoftware.pineappleapp.account.OnboardingActivity">
+
+    <!-- Content RelativeLayout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/onboarding_background"
+        android:layout_above="@+id/onboardingButtonsLinearLayout">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/onboardingViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_above="@id/onboardingDotsLinearLayout"
+            android:overScrollMode="never"/>
+
+        <LinearLayout
+            android:id="@+id/onboardingDotsLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/view_pager_dots_height"
+            android:layout_marginBottom="@dimen/default_large_margin"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"/>
+
+    </RelativeLayout>
+
+    <!-- Buttons LinearLayout -->
+    <LinearLayout
+        android:id="@+id/onboardingButtonsLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="@dimen/default_medium_margin">
+
+        <!-- Sign up Button -->
+        <Button
+            android:id="@+id/onboardingSignUpButton"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height_default"
+            android:layout_marginEnd="@dimen/default_small_margin"
+            android:layout_marginStart="@dimen/default_medium_margin"
+            android:layout_weight="1"
+            android:background="@drawable/btn_transparent_rounded"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/onboarding_register"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+
+        <!-- Sign in Button -->
+        <Button
+            android:id="@+id/onBoardingSignInButton"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height_default"
+            android:layout_marginEnd="@dimen/default_medium_margin"
+            android:layout_marginStart="@dimen/default_small_margin"
+            android:layout_weight="1"
+            android:background="@drawable/btn_transparent_rounded"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/onboardong_login"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>

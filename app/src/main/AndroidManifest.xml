@@ -15,10 +15,13 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
-        <!-- Login Activity -->
+        <!-- Onboarding Activity -->
         <activity
-            android:name=".account.LoginActivity"
+            android:name=".account.OnboardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
@@ -27,6 +30,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Login Activity -->
+        <activity
+            android:name=".account.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/NoActionBarTheme"
+            android:parentActivityName=".account.OnboardingActivity"/>
 
         <!-- Main Activity -->
         <activity
@@ -61,10 +71,11 @@
             android:name=".main.CreateTransactionActivity"
             android:parentActivityName=".main.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/NoActionBarTheme"/>
+            android:theme="@style/NoActionBarTheme" />
 
         <!-- Generic Activity -->
-        <activity android:name=".generic.PineappleGenericActivity"></activity>
+        <activity android:name=".generic.PineappleGenericActivity" />
+
     </application>
 
 </manifest>

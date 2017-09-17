@@ -17,6 +17,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center"
             android:lines="1"
+            android:fontFamily="@font/roboto_light"
             android:text="Pineapple"
             android:textColor="@android:color/white"
             android:textSize="18dp" />

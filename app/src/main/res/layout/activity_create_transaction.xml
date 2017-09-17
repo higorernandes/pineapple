@@ -108,8 +108,8 @@
         <Button
             android:id="@+id/createTransactionButtonSave"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/default_button_height"
-            android:background="@color/colorPrimary"
+            android:layout_height="@dimen/button_height_default"
+            android:background="@color/colorAccent"
             android:textColor="@android:color/white"
             android:text="@string/create_transaction_save"
             android:layout_alignParentBottom="true"

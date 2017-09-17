@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_centerInParent="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4">
+
+        <ImageView
+            android:layout_width="@dimen/image_extra_large_size"
+            android:layout_height="@dimen/image_extra_large_size"
+            android:layout_weight="3"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/default_small_margin"
+            android:layout_marginTop="@dimen/default_extra_large_margin"
+            android:src="@mipmap/ic_launcher" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="top"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/default_medium_margin"
+            android:layout_marginEnd="@dimen/default_large_margin"
+            android:layout_marginStart="@dimen/default_large_margin"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/onboarding_second_title"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_extra_large" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/default_medium_margin"
+            android:layout_marginEnd="@dimen/default_large_margin"
+            android:layout_marginStart="@dimen/default_large_margin"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/onboarding_second_text"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_large" />
+
+    </LinearLayout>
+
+</LinearLayout>
