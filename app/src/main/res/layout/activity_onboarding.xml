@@ -58,6 +58,7 @@
             android:fontFamily="@font/roboto_light"
             android:text="@string/onboarding_register"
             android:textAllCaps="true"
+            android:textSize="@dimen/font_size_small"
             android:textColor="@android:color/white" />
 
         <!-- Sign in Button -->
@@ -73,6 +74,7 @@
             android:fontFamily="@font/roboto_light"
             android:text="@string/onboardong_login"
             android:textAllCaps="true"
+            android:textSize="@dimen/font_size_small"
             android:textColor="@android:color/white" />
 
     </LinearLayout>

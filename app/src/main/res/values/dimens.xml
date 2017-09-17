@@ -18,6 +18,7 @@
     <!-- Fonts -->
     <dimen name="font_size_extra_large">24dp</dimen>
     <dimen name="font_size_large">18dp</dimen>
+    <dimen name="font_size_medium_large">15dp</dimen>
     <dimen name="font_size_medium">14dp</dimen>
     <dimen name="font_size_small">12dp</dimen>
 

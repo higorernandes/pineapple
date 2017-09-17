@@ -2,27 +2,27 @@
 
     <!-- App Information -->
     <string name="app_name">Pineapple</string>
-    <string name="app_full_name">Pineapple Expenses</string>
+    <string name="app_full_name">Pineapple Controle de Gastos</string>
     <string name="facebook_app_id">630683277125908</string>
 
     <!-- Generic -->
 
     <!-- Onboarding -->
-    <string name="onboarding_register">Sign up</string>
-    <string name="onboardong_login">I\'m already in</string>
-    <string name="onboarding_first_title">Control</string>
-    <string name="onboarding_first_text">All your expenses on the palm of your hand.</string>
-    <string name="onboarding_second_title">Planning</string>
-    <string name="onboarding_second_text">Need to know if you can crash that party on the weekend? We can answer that.</string>
-    <string name="onboarding_third_title">Fast access</string>
-    <string name="onboarding_third_text">See your financial status in the blink of an eye.</string>
+    <string name="onboarding_register">Cadastrar</string>
+    <string name="onboardong_login">Já tenho conta</string>
+    <string name="onboarding_first_title">Controle</string>
+    <string name="onboarding_first_text">Todas as suas despesas na palma da sua mão.</string>
+    <string name="onboarding_second_title">Planejamento</string>
+    <string name="onboarding_second_text">Quer saber se vai poder ir àquela festa no fim de semana? Nós respondemos.</string>
+    <string name="onboarding_third_title">Acesso Rápido</string>
+    <string name="onboarding_third_text">Veja seu status financeiro num piscar de olhos.</string>
 
     <!-- Login -->
     <string name="fb_login_protocol_scheme">fb630683277125908</string>
-    <string name="facebook_button_text">or login with Facebook</string>
+    <string name="facebook_button_text">ou entre com o Facebook</string>
     <string name="login_label">Email</string>
-    <string name="login_placeholder">your@email.com</string>
-    <string name="password_label">Password</string>
+    <string name="login_placeholder">seu@email.com</string>
+    <string name="password_label">Senha</string>
     <string name="password_placeholder">******</string>
     <string name="action_sign_in">Get me in!</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -31,10 +31,10 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
-    <string name="login">Login</string>
-    <string name="login_no_account_text">Don\'t have an account?</string>
-    <string name="login_register_button">Sign up here.</string>
-    <string name="login_forgot_password">Forgot your password?</string>
+    <string name="login">Entrar</string>
+    <string name="login_no_account_text">Não tem uma conta?</string>
+    <string name="login_register_button">Cadastre-se aqui.</string>
+    <string name="login_forgot_password">Esqueceu sua senha?</string>
 
     <!-- Navigation Drawer -->
     <string name="nav_home">Home</string>
