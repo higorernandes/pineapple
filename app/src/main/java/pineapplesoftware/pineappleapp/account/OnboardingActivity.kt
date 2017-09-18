@@ -18,6 +18,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_onboarding.*
 import pineapplesoftware.pineappleapp.helper.SharedPreferencesHelper
+import pineapplesoftware.pineappleapp.helper.UserCredentialsHelper
 import pineapplesoftware.pineappleapp.main.MainActivity
 
 class OnboardingActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
@@ -39,9 +40,15 @@ class OnboardingActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
         setContentView(R.layout.activity_onboarding)
 
         if (SharedPreferencesHelper.getStringFromSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED) != null && SharedPreferencesHelper.getStringFromSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED).equals("YES")) {
-            startActivity(MainActivity.getActivityIntent(this))
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out);
-            finish()
+            val userId = SharedPreferencesHelper.getStringFromSharedPreferences(this, SharedPreferencesHelper.USER_ID)
+            val userName = SharedPreferencesHelper.getStringFromSharedPreferences(this, SharedPreferencesHelper.USER_NAME)
+            val userEmail = SharedPreferencesHelper.getStringFromSharedPreferences(this, SharedPreferencesHelper.USER_EMAIL)
+
+            if (userId != null && userName != null && userEmail != null) {
+                startActivity(MainActivity.getActivityIntent(this, userId, userName, userEmail))
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out);
+                finish()
+            }
         }
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN

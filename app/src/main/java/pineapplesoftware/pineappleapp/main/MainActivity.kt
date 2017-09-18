@@ -25,6 +25,8 @@ import com.facebook.login.LoginManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.app_bar_main.view.*
+import kotlinx.android.synthetic.main.item_transaction.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import kotlinx.android.synthetic.main.toolbar_main.view.*
 
@@ -38,6 +40,24 @@ import pineapplesoftware.pineappleapp.util.CustomTypefaceSpan
 
 class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
 {
+    //region Companion Object
+
+    companion object {
+        private val USER_ID = "USER_ID"
+        private val USER_NAME : String = "USER_NAME"
+        private val USER_EMAIL : String = "USER_EMAIL"
+
+        fun getActivityIntent(context: Context, userId: String, userName: String, userEmail: String) : Intent {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.putExtra(USER_ID, userId)
+            intent.putExtra(USER_NAME, userName)
+            intent.putExtra(USER_EMAIL, userEmail)
+            return intent
+        }
+    }
+
+    //endregion
+
     //region Attributes
 
     private val TAG : String = "MainActivity"
@@ -45,6 +65,8 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
     private val mUrlNavHeaderBackground : String = "http://api.androidhive.info/images/nav-menu-header-bg.jpg"
     private var mUrlNavUserProfile : String = "https://graph.facebook.com/{userId}/picture?type=large"
     private var mUserId : String? = null
+    private var mUserName : String? = null
+    private var mUserEmail : String? = null
     private var mNavItemIndex: Int = 0
     private var mShouldLoadHomeFragOnBackPress = true
     private var mHandler : Handler? = null
@@ -63,15 +85,13 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
         PineappleApplication(this)
 
+        // Setting up the Toolbar.
         setSupportActionBar(mainToolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         mHandler = Handler()
 
-        // Getting the user ID to setup their profile picture.
-        mUserId = UserCredentialsHelper.getInstance().getAuthenticationData()?.userId
-        mUrlNavUserProfile = mUrlNavUserProfile.replace("{userId}", mUserId as String, false)
-
+        getExtras()
         prepareViews()
         loadNavHeader()
         setUpNavigationView()
@@ -168,6 +188,13 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
     //region Private Methods
 
+    private fun getExtras() {
+        // Getting the user ID to setup their profile picture.
+        mUserId = intent.getStringExtra(USER_ID)
+        mUserName = intent.getStringExtra(USER_NAME)
+        mUserEmail = intent.getStringExtra(USER_EMAIL)
+    }
+
     private fun prepareViews() {
         fab.setOnClickListener(this)
 
@@ -194,11 +221,11 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
     private fun loadNavHeader() {
         // Setting up the basic user information
-        mainNavigationView.getHeaderView(0).userName.text = "Higor Ernandes"
-        mainNavigationView.getHeaderView(0).userWebsite.text = "www.ismycomputeron.com"
+        mainNavigationView.getHeaderView(0).userName.text = mUserName
+        mainNavigationView.getHeaderView(0).userEmail.text = mUserEmail
 
         // Setting up the user image and the background
-        //Glide.with(this).load(mUrlNavHeaderBackground).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(mainNavigationView.getHeaderView(0).imageHeaderBackground)
+        mUrlNavUserProfile = mUrlNavUserProfile.replace("{userId}", mUserId as String, false)
         Glide.with(this).load(mUrlNavUserProfile).crossFade().thumbnail(0.5f).bitmapTransform(CircleTransform(this)).diskCacheStrategy(DiskCacheStrategy.ALL).into(mainNavigationView.getHeaderView(0).imageProfile)
     }
 
@@ -317,19 +344,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
         startActivity(LoginActivity.getActivityIntent(this))
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-    }
-
-    //endregion
-
-    //region Inner Objects and Classes
-
-    companion object {
-        private val USER_ID = "user_id"
-
-        fun getActivityIntent(context: Context) : Intent {
-            val intent : Intent = Intent(context, MainActivity::class.java)
-            return intent
-        }
     }
 
     //endregion

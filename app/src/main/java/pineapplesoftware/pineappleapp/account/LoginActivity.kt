@@ -8,17 +8,15 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.View
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
+import com.facebook.*
 
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import kotlinx.android.synthetic.main.activity_create_transaction.*
 
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.toolbar_main.*
+import org.json.JSONObject
 import pineapplesoftware.pineappleapp.R
 import pineapplesoftware.pineappleapp.account.model.AuthenticationData
 import pineapplesoftware.pineappleapp.account.model.AuthenticationResult
@@ -54,21 +52,37 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
     }
 
     override fun onSuccess(result: LoginResult?) {
-        Log.d(TAG, "Login successful - UserID: ${result?.accessToken?.userId}}, Auth Token: ${result?.accessToken?.token}.")
+        val graphRequest : GraphRequest = GraphRequest.newMeRequest(result?.accessToken) { jsonObject: JSONObject, graphResponse: GraphResponse ->
+            Log.v(TAG, graphResponse.toString())
 
-        val authenticationResult = AuthenticationResult()
-        authenticationResult.accessToken = result?.accessToken?.token
-        UserCredentialsHelper.getInstance().saveCurrentToken(authenticationResult)
-        SharedPreferencesHelper.saveStringInSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED, "YES")
+            val userId = jsonObject.getString("id")
+            val userName = jsonObject.getString("name")
+            val userEmail = jsonObject.getString("email")
 
-        setUpAuthenticationData(result?.accessToken?.userId)
+            val authenticationResult = AuthenticationResult()
+            authenticationResult.accessToken = result?.accessToken?.token
+            UserCredentialsHelper.getInstance().saveCurrentToken(authenticationResult)
 
-        val intent : Intent = MainActivity.getActivityIntent(this)
-        OnboardingActivity.instance?.finish()
-        finish()
-        startActivity(intent)
+            SharedPreferencesHelper.saveStringInSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED, "YES")
+            SharedPreferencesHelper.saveStringInSharedPreferences(this, SharedPreferencesHelper.USER_ID, userId)
+            SharedPreferencesHelper.saveStringInSharedPreferences(this, SharedPreferencesHelper.USER_NAME, userName)
+            SharedPreferencesHelper.saveStringInSharedPreferences(this, SharedPreferencesHelper.USER_EMAIL, userEmail)
 
-        emailSignInButton.isEnabled = true
+            setUpAuthenticationData(result?.accessToken?.userId)
+
+            val intent : Intent = MainActivity.getActivityIntent(this, userId, userName, userEmail)
+
+            OnboardingActivity.instance?.finish()
+            finish()
+            startActivity(intent)
+
+            emailSignInButton.isEnabled = true
+        }
+
+        val parameters = Bundle()
+        parameters.putString("fields", "id, name, email")
+        graphRequest.parameters = parameters
+        graphRequest.executeAsync()
     }
 
     override fun onCancel() {
@@ -152,7 +166,7 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
 
         setUpAuthenticationData()
 
-        val intent : Intent = MainActivity.getActivityIntent(this)
+        val intent : Intent = MainActivity.getActivityIntent(this, "", "", "")
         startActivity(intent)
 
         emailSignInButton.isEnabled = true

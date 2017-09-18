@@ -44,7 +44,7 @@
 
         <!-- User website -->
         <TextView
-            android:id="@+id/userWebsite"
+            android:id="@+id/userEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryExtraLight"

@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 
 /**
- * Created by root on 2017-07-26.
+ * Created by Higor Ernandes on 2017-07-26.
  */
 class SharedPreferencesHelper
 {
@@ -14,6 +14,9 @@ class SharedPreferencesHelper
     companion object {
 
         val USER_LOGGED : String = "USER_LOGGED"
+        val USER_ID : String = "USER_ID"
+        val USER_NAME : String = "USER_NAME"
+        val USER_EMAIL : String = "USER_EMAIL"
 
         fun saveStringInSharedPreferences(context: Context, key: String, value: String) {
             val sharedPreferences : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)

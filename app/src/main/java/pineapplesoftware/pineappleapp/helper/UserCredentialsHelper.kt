@@ -39,7 +39,7 @@ class UserCredentialsHelper private constructor()
     //region Public Methods
 
     fun saveCurrentAuthenticationData(authData: AuthenticationData) {
-        val gson : Gson = Gson()
+        val gson = Gson()
         val jsonString : String = gson.toJson(authData)
         SharedPreferencesHelper.saveStringInSharedPreferences(PineappleApplication.getContext(), AUTH_DATA_SHARED_KEY, jsonString)
     }
@@ -51,7 +51,7 @@ class UserCredentialsHelper private constructor()
         }
 
         try {
-            val gson : Gson = Gson()
+            val gson = Gson()
             val returnData : AuthenticationData = gson.fromJson(authDataString, AuthenticationData::class.java)
             return returnData
         } catch (e: Exception) {
@@ -61,7 +61,7 @@ class UserCredentialsHelper private constructor()
     }
 
     fun saveCurrentToken(token: AuthenticationResult) {
-        val gson : Gson = Gson()
+        val gson = Gson()
         val jsonString : String = gson.toJson(token)
         SharedPreferencesHelper.saveStringInSharedPreferences(PineappleApplication.getContext(), AUTH_TOKEN_SHARED_KEY, jsonString)
     }
