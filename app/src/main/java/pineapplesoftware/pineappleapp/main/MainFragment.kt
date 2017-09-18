@@ -68,12 +68,12 @@ class MainFragment : Fragment(), Observer
 
     private fun loadData() {
         mObjects.add(TransactionItemDto(1, "Compras Mercado", "Mercado da Gente", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-        mObjects.add(TransactionItemDto(1, "Compras Shopping", "Riachuelo", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
+        mObjects.add(TransactionItemDto(1, "Recebimento aluguel", "John", TransactionItemDto.ExpenseType.EARNING, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Padaria", "Compra de pães", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Posto", "Gasolina", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Compras Mercado", "Compras 25/08", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-        mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
-        mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
+        mObjects.add(TransactionItemDto(1, "Dinheiro festa", "Banana da Terra", TransactionItemDto.ExpenseType.EARNING, Date(), AccountDto(), ""))
+        mObjects.add(TransactionItemDto(1, "Taxi", "Banana da Terra", TransactionItemDto.ExpenseType.EARNING, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))
         mObjects.add(TransactionItemDto(1, "Restaurante", "Banana da Terra", TransactionItemDto.ExpenseType.EXPENSE, Date(), AccountDto(), ""))

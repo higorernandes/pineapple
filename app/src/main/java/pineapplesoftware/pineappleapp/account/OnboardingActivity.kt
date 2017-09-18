@@ -17,16 +17,32 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_onboarding.*
+import pineapplesoftware.pineappleapp.helper.SharedPreferencesHelper
+import pineapplesoftware.pineappleapp.main.MainActivity
 
 class OnboardingActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
-     private var mLayouts = intArrayOf()
+    //region Attributes
+
+    private var mLayouts = intArrayOf()
+
+    companion object {
+        var instance : OnboardingActivity? = null
+    }
+
+    //endregion
 
     //region Overridden Methods
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
+
+        if (SharedPreferencesHelper.getStringFromSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED) != null && SharedPreferencesHelper.getStringFromSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED).equals("YES")) {
+            startActivity(MainActivity.getActivityIntent(this))
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out);
+            finish()
+        }
 
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
@@ -37,6 +53,8 @@ class OnboardingActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
         prepareViews()
         addBottomDots(0)
         changeStatusBarColor()
+
+        instance = this
     }
 
     override fun onPageScrollStateChanged(state: Int) { }

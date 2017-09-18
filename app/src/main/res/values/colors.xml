@@ -6,8 +6,14 @@
     <color name="colorPrimaryExtraLight">#3bffffff</color>
     <color name="colorPrimaryDarkTranslucent">#aa000000</color>
     <color name="colorAccent">#E94347</color>
+    <color name="colorEarning">#e574ca6b</color>
     <color name="colorBackground">#f6f6f6</color>
     <color name="colorEmptyImage">#d4d4d4</color>
     <color name="colorGray">#E7E9DE</color>
     <color name="colorDarkGray">#C2C0B8</color>
+
+    <color name="colorPieChart1">#e5cac76b</color>
+    <color name="colorPieChart2">#e56bcaba</color>
+    <color name="colorPieChart3">#e5ca6bc7</color>
+    <color name="colorPieChart4">#e5916bca</color>
 </resources>

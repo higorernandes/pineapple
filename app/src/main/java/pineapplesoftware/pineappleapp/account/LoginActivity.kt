@@ -23,6 +23,7 @@ import pineapplesoftware.pineappleapp.R
 import pineapplesoftware.pineappleapp.account.model.AuthenticationData
 import pineapplesoftware.pineappleapp.account.model.AuthenticationResult
 import pineapplesoftware.pineappleapp.application.PineappleApplication
+import pineapplesoftware.pineappleapp.helper.SharedPreferencesHelper
 import pineapplesoftware.pineappleapp.main.MainActivity
 import pineapplesoftware.pineappleapp.helper.UserCredentialsHelper
 import java.util.*
@@ -44,14 +45,6 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
         setContentView(R.layout.activity_login)
 
         PineappleApplication(this)
-
-        // Setting up the ToolBar.
-//        setSupportActionBar(loginToolbar as Toolbar)
-//        toolbarTitle.text = resources.getString(R.string.login)
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        supportActionBar?.setHomeButtonEnabled(true)
-
-        // setUpFacebookLogin()
         prepareViews()
     }
 
@@ -66,10 +59,13 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
         val authenticationResult = AuthenticationResult()
         authenticationResult.accessToken = result?.accessToken?.token
         UserCredentialsHelper.getInstance().saveCurrentToken(authenticationResult)
+        SharedPreferencesHelper.saveStringInSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED, "YES")
 
         setUpAuthenticationData(result?.accessToken?.userId)
 
         val intent : Intent = MainActivity.getActivityIntent(this)
+        OnboardingActivity.instance?.finish()
+        finish()
         startActivity(intent)
 
         emailSignInButton.isEnabled = true
@@ -87,7 +83,9 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
 
     override fun onBackPressed() {
         finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        if (OnboardingActivity.instance != null) {
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
         super.onBackPressed()
     }
 
@@ -99,7 +97,7 @@ class LoginActivity : AppCompatActivity(), FacebookCallback<LoginResult>, View.O
         FacebookSdk.sdkInitialize(applicationContext)
         mCallbackManager = CallbackManager.Factory.create()
         LoginManager.getInstance().registerCallback(mCallbackManager, this)
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email"))
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
     }
 
     private fun prepareViews() {

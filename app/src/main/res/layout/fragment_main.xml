@@ -9,7 +9,6 @@
         android:id="@+id/mainExpensesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/default_card_margin_small"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/list_padding_bottom">
 

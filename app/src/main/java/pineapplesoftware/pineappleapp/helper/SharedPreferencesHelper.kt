@@ -13,6 +13,8 @@ class SharedPreferencesHelper
 
     companion object {
 
+        val USER_LOGGED : String = "USER_LOGGED"
+
         fun saveStringInSharedPreferences(context: Context, key: String, value: String) {
             val sharedPreferences : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
             val sharedPreferencesEditor : SharedPreferences.Editor = sharedPreferences.edit();

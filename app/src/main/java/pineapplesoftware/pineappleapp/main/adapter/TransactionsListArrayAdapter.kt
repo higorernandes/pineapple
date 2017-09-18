@@ -2,6 +2,7 @@ package pineapplesoftware.pineappleapp.main.adapter;
 
 import android.content.Context
 import android.graphics.Typeface
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +21,6 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
 
     private var mContext : Context
     private var mObjects : ArrayList<TransactionItemDto> = ArrayList<TransactionItemDto>()
-    private var mOpenSansFontRegular : Typeface? = null
 
     //endregion
 
@@ -29,7 +29,6 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
     init {
         mObjects = objects
         mContext = context
-        mOpenSansFontRegular = Typeface.createFromAsset(mContext.assets, "fonts/OpenSans-Regular.ttf")
     }
 
     //endregion
@@ -37,7 +36,13 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
     //region Overridden Methods
 
     override fun onBindViewHolder(holder: Holder?, position: Int) {
-        var transactionItem : TransactionItemDto = mObjects[position]
+        val transactionItem : TransactionItemDto = mObjects[position]
+
+        if (transactionItem.transactionType == TransactionItemDto.ExpenseType.EARNING) {
+            holder?.transactionType?.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorEarning))
+        } else {
+            holder?.transactionType?.setBackgroundColor(ContextCompat.getColor(mContext, R.color.colorAccent))
+        }
 
         holder?.transactionName?.text = transactionItem.transactionName
         holder?.transactionDescription?.text = transactionItem.transactionDescription
@@ -46,11 +51,6 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
 
         //holder?.containerView?.setOnClickListener { clickListener(transactionItem) }
         holder?.containerView?.setOnClickListener { clickListener(transactionItem) }
-
-        holder?.transactionName?.typeface = mOpenSansFontRegular
-        holder?.transactionDescription?.typeface = mOpenSansFontRegular
-        holder?.transactionDate?.typeface = mOpenSansFontRegular
-        holder?.transactionAmount?.typeface = mOpenSansFontRegular
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
@@ -74,12 +74,14 @@ class TransactionsListArrayAdapter constructor(context: Context, objects: ArrayL
         var transactionDescription : TextView? = null
         var transactionAmount : TextView? = null
         var transactionDate : TextView? = null
+        var transactionType : View? = null
 
         init {
             transactionName = itemView.findViewById<TextView>(R.id.mainFragmentTransactionNameTextView)
             transactionDescription = itemView.findViewById<TextView>(R.id.mainFragmentTransactionDescriptionTextView)
             transactionAmount = itemView.findViewById<TextView>(R.id.mainFragmentTransactionAmountTextView)
             transactionDate = itemView.findViewById<TextView>(R.id.mainFragmentTransactionDateTextView)
+            transactionType = itemView.findViewById<View>(R.id.mainFragmentTransactionTypeView)
         }
     }
 

@@ -42,19 +42,6 @@ class CreateTransactionActivity : AppCompatActivity(), View.OnClickListener
 
     private fun prepareViews() {
         createTransactionButtonSave.setOnClickListener(this)
-
-        val openSansFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Regular.ttf")
-        val openSansFontBold : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Bold.ttf")
-        toolbarTitle.typeface = openSansFontRegular
-        transactionAmountEditText.typeface = openSansFontRegular
-        transactionDateEditText.typeface = openSansFontRegular
-        transactionDescriptionEditText.typeface = openSansFontRegular
-        transactionAmountTextInputLayout.setTypeface(openSansFontRegular)
-        transactionDateTextInputLayout.setTypeface(openSansFontRegular)
-        transactionDescriptionTextInputLayout.setTypeface(openSansFontRegular)
-        transactionTypeEarningRadioButton.typeface = openSansFontRegular
-        transactionTypeExpenseRadioButton.typeface = openSansFontRegular
-        createTransactionButtonSave.typeface = openSansFontBold
     }
 
     private fun createTransaction() {

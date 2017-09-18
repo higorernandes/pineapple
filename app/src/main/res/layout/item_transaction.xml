@@ -5,22 +5,22 @@
     android:orientation="horizontal"
     android:background="@android:color/transparent">
 
-    <!-- CardView -->
-    <android.support.v7.widget.CardView
+    <View
+        android:id="@+id/mainFragmentTransactionTypeView"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorEarning"/>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_card_margin_small"
-        android:layout_marginLeft="@dimen/default_card_margin"
-        android:layout_marginRight="@dimen/default_card_margin"
-        android:layout_marginTop="@dimen/default_card_margin_small"
-        android:background="@android:color/white"
-        android:foreground="?android:attr/selectableItemBackground">
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/contentLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/default_card_margin"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_medium_margin">
 
             <!-- Transaction Icon -->
             <ImageView
@@ -28,6 +28,7 @@
                 android:layout_width="@dimen/image_small_size"
                 android:layout_height="@dimen/image_small_size"
                 android:layout_gravity="center"
+                android:contentDescription="@string/transaction_icon_description"
                 android:background="@drawable/image_oval"/>
 
             <RelativeLayout
@@ -45,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/default_extra_small_margin"
                     android:alpha="0.87"
+                    android:fontFamily="@font/roboto_light"
                     android:text="TextView"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/font_size_medium" />
@@ -56,6 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/mainFragmentTransactionNameTextView"
                     android:alpha="0.38"
+                    android:fontFamily="@font/roboto_light"
                     android:text="TextView"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/font_size_small" />
@@ -77,6 +80,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginBottom="@dimen/default_extra_small_margin"
                     android:alpha="0.87"
+                    android:fontFamily="@font/roboto_light"
                     android:text="TextView"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/font_size_medium" />
@@ -87,9 +91,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
                     android:layout_below="@id/mainFragmentTransactionAmountTextView"
+                    android:layout_centerVertical="true"
                     android:alpha="0.38"
+                    android:fontFamily="@font/roboto_light"
                     android:text="TextView"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/font_size_small" />
@@ -98,6 +103,13 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginStart="@dimen/default_medium_margin"
+            android:layout_marginEnd="@dimen/default_medium_margin"
+            android:background="@color/colorGray"/>
+
+    </LinearLayout>
 
 </LinearLayout>

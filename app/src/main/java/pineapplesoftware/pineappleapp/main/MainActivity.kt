@@ -1,6 +1,7 @@
 package pineapplesoftware.pineappleapp.main
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
 import android.support.v7.app.AppCompatActivity
@@ -9,18 +10,18 @@ import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.support.v4.content.res.ResourcesCompat
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.text.Spannable
 import android.text.SpannableString
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.SubMenu
-import android.view.View
+import android.view.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.facebook.login.LoginManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.app_bar_main.view.*
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.toolbar_main.view.*
 import pineapplesoftware.pineappleapp.R
 import pineapplesoftware.pineappleapp.account.LoginActivity
 import pineapplesoftware.pineappleapp.application.PineappleApplication
+import pineapplesoftware.pineappleapp.helper.SharedPreferencesHelper
 import pineapplesoftware.pineappleapp.helper.UserCredentialsHelper
 import pineapplesoftware.pineappleapp.util.CircleTransform
 import pineapplesoftware.pineappleapp.util.CustomTypefaceSpan
@@ -48,7 +50,8 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
     private var mHandler : Handler? = null
 
     private val TAG_MAIN : String = "Main"
-    private val CURRENT_TAG : String = TAG_MAIN
+    private val TAG_STATS : String = "Stats"
+    private var CURRENT_TAG : String = TAG_MAIN
 
     //endregion
 
@@ -62,7 +65,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
         setSupportActionBar(mainToolbar as Toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-//        mainToolbarLayout.userProfilePicture?.profileId = mUserId
 
         mHandler = Handler()
 
@@ -102,15 +104,19 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> {
-                Log.d(TAG, "Selected HOME")
+                CURRENT_TAG = TAG_MAIN
+                mNavItemIndex = 0
+                loadMainFragment()
                 return true
             }
-            R.id.nav_contact -> {
-                Log.d(TAG, "Selected CONTACT")
+            R.id.nav_stats -> {
+                CURRENT_TAG = TAG_STATS
+                mNavItemIndex = 1
+                loadStatsFragment()
                 return true
             }
             R.id.nav_logout -> {
-                Log.d(TAG, "Selected LOGOUT")
+                confirmLogout()
                 return true
             }
             R.id.nav_about_us -> {
@@ -164,8 +170,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
     private fun prepareViews() {
         fab.setOnClickListener(this)
-        val openSansFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Regular.ttf")
-        mainToolbar.mainToolbarLayout.toolbarTitle.typeface = openSansFontRegular
 
         // Applying font to all menu items.
         for (index in 0..mainNavigationView.menu.size() - 1) {
@@ -182,9 +186,9 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
     }
 
     private fun applyFontToMenuItem(menuItem: MenuItem) {
-        val openSansFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Regular.ttf")
+        val robotoFontLight : Typeface? = ResourcesCompat.getFont(this, R.font.roboto_light)
         val newTitle : SpannableString = SpannableString(menuItem.title)
-        newTitle.setSpan(CustomTypefaceSpan("", openSansFontRegular), 0, newTitle.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        newTitle.setSpan(CustomTypefaceSpan("", robotoFontLight), 0, newTitle.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         menuItem.title = newTitle
     }
 
@@ -192,10 +196,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
         // Setting up the basic user information
         mainNavigationView.getHeaderView(0).userName.text = "Higor Ernandes"
         mainNavigationView.getHeaderView(0).userWebsite.text = "www.ismycomputeron.com"
-
-        val openSansFontRegular : Typeface = Typeface.createFromAsset(applicationContext.assets, "fonts/OpenSans-Regular.ttf")
-        mainNavigationView.getHeaderView(0).userName.typeface = openSansFontRegular
-        mainNavigationView.getHeaderView(0).userWebsite.typeface = openSansFontRegular
 
         // Setting up the user image and the background
         //Glide.with(this).load(mUrlNavHeaderBackground).crossFade().diskCacheStrategy(DiskCacheStrategy.ALL).into(mainNavigationView.getHeaderView(0).imageHeaderBackground)
@@ -211,7 +211,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
             return
         }
 
-        val pendingRunnable : Runnable = Runnable {
+        val pendingRunnable = Runnable {
             kotlin.run {
                 val fragment : Fragment = getHomeFragment()
                 val fragmentTransaction : FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -223,7 +223,34 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
 
         mHandler?.post(pendingRunnable)
 
+        mainToolbar.toolbarTitle.text = resources.getString(R.string.app_name)
+        toggleFab()
+        mainDrawerLayout.closeDrawers()
+        invalidateOptionsMenu()
+    }
 
+    private fun loadStatsFragment() {
+        selectNavMenuItem()
+
+        if (supportFragmentManager.findFragmentByTag(CURRENT_TAG) != null) {
+            mainDrawerLayout.closeDrawers()
+            toggleFab()
+            return
+        }
+
+        val pendingRunnable = Runnable {
+            kotlin.run {
+                val fragment : Fragment = getHomeFragment()
+                val fragmentTransaction : FragmentTransaction = supportFragmentManager.beginTransaction()
+                fragmentTransaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                fragmentTransaction.replace(R.id.mainFrameLayout, fragment, CURRENT_TAG)
+                fragmentTransaction.commitAllowingStateLoss()
+            }
+        }
+
+        mHandler?.post(pendingRunnable)
+
+        mainToolbar.toolbarTitle.text = resources.getString(R.string.nav_stats)
         toggleFab()
         mainDrawerLayout.closeDrawers()
         invalidateOptionsMenu()
@@ -234,13 +261,15 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
     }
 
     private fun getHomeFragment() : android.support.v4.app.Fragment {
-        when (mNavItemIndex) {
+        return when (mNavItemIndex) {
             0 -> {
-                val mainFragment : MainFragment = MainFragment()
-                return mainFragment
+                MainFragment()
+            }
+            1 -> {
+                StatsFragment()
             }
             else -> {
-                return MainFragment()
+                MainFragment()
             }
         }
     }
@@ -248,7 +277,7 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
     private fun setUpNavigationView() {
         mainNavigationView.setNavigationItemSelectedListener(this)
 
-        val actionBarDrawerToggle : ActionBarDrawerToggle = ActionBarDrawerToggle(this, mainDrawerLayout, mainToolbar, R.string.open_drawer, R.string.close_drawer)
+        val actionBarDrawerToggle = ActionBarDrawerToggle(this, mainDrawerLayout, mainToolbar, R.string.open_drawer, R.string.close_drawer)
         mainDrawerLayout.setDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
     }
@@ -259,6 +288,35 @@ class MainActivity : AppCompatActivity() , View.OnClickListener, NavigationView.
         } else {
             fab.hide()
         }
+    }
+
+    private fun confirmLogout() {
+        val alertDialogBuilder : AlertDialog.Builder = AlertDialog.Builder(this)
+
+        // Setting the texts.
+        alertDialogBuilder.setTitle(resources.getString(R.string.nav_logout))
+                .setMessage(resources.getString(R.string.logout_confirmation))
+
+        // Setting the button actions.
+        alertDialogBuilder.setPositiveButton(R.string.logout_leave, { _, _ -> performLogout() })
+                .setNegativeButton(R.string.logout_stay, { dialogInterface, _ -> dialogInterface.dismiss() })
+                .setCancelable(true)
+
+        // Creating the dialog.
+        alertDialogBuilder.create()
+        alertDialogBuilder.show()
+    }
+
+    private fun performLogout() {
+        LoginManager.getInstance().logOut()
+
+        if (!SharedPreferencesHelper.getStringFromSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED).equals("")) {
+            SharedPreferencesHelper.saveStringInSharedPreferences(this, SharedPreferencesHelper.USER_LOGGED, "NO")
+        }
+
+        startActivity(LoginActivity.getActivityIntent(this))
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     //endregion
